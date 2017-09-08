@@ -1,0 +1,231 @@
+\section{Prädikatenlogik}
+
+\begin{frame}{Prädikatenlogik}
+  Drei Schritte:
+  \begin{itemize}
+    \item Definiert Terme, die aus Konstanten, Variablen und Funktionssymbolen zusammengesetzt sind.
+    \item Mit Hilfe von Relationssymbolen und Termen konstruiert man dann atomare Formeln.
+    \item Mit Hilfe von zwei Quantoren werden allgemeine prädikatenlogische Formeln konstruiert.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Beispiel für Terme}
+  \begin{itemize}
+    \item $c$
+    \item $y$
+    \item $g(x)$
+    \item $f(x,g(z))$
+    \item $f(c,g(g(z)))$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Atomare Formeln}
+  \begin{itemize}
+    \item Relationssymbole mit Alphabet $Rel_{PL}$
+    \item kurz R,S,..
+    \item $\stackrel{.}{=}$ Relation immer dabei
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Atomare Formeln}
+  korrekte Formeln:
+  \begin{itemize}
+    \item $R(y,c,g(x))$
+    \item $f(x,y)\stackrel{.}{=}g(z)$
+    \item $S(c)$
+  \end{itemize}
+  syntaktisch falsche Formeln:
+  \begin{itemize}
+    \item $S(x)\stackrel{.}{=}S(x)$
+    \item $f(R(x,c))$
+    \item $R(S(x),c,y)$
+    \item $x\stackrel{.}{=}y\stackrel{.}{=}z$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Quantoren}
+  \begin{itemize}
+    \item Allquantor $\forall$
+    \item Existenzquantor $\exists$
+    \item Klammerregel: Quantoren binden am stärksten
+    \item $(\exists x F)$ statt $(\lnot(\forall x (\lnot F ) ) )$
+    \item $A_{For}=A_{Rel}\cup \{\lnot,\land,\lor,\rightarrow,\forall,\exists\}$
+    \item z.B. $\forall xR(x,y)\land S(x)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Interpretation}
+  Es seien Alphabete $Const_{PL}$, $Fun_{PL}$ und $Rel_{PL}$ gegeben.\\
+  Sind eine Interpretation (D,I) und eine Variablenbelegung $\beta$ festgelegt, so kann man
+  \begin{itemize}
+    \item jedem Term einen Wert aus D und
+    \item jeder Formel einen Wahrheitswert zuordnen.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Interpretation von Termen}
+  \begin{align*}
+    val_{D,I,\beta}(t)= \begin{cases} \beta(x_i), \text{ falls }t=x_i \in Var_{PL} \\ 
+    I(c_i), \text{ falls } t=c_i \in Const_{PL} \\
+    I(f_i)(val_{D,I,\beta}(t_1),..,val_{D,I,\beta}(t_k)) , \text{ falls } t=f_i(t_1,...,t_k)
+    \end{cases}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Interpretation von atomaren Formeln}
+  \begin{align*}
+    val_{D,I,\beta}(R_i(t_1,...,t_k))= \begin{cases} w, \text{ falls }(val_{D,I,\beta}(t_1),...,val_{D,I,\beta}(t_k))\in I(R_i)) \\ 
+    f, \text{ falls }(val_{D,I,\beta}(t_1),...,val_{D,I,\beta}(t_k))\notin I(R_i))
+    \end{cases}
+  \end{align*}
+  \begin{align*}
+    val_{D,I,\beta}(t_1\stackrel{.}{=}t_2)= \begin{cases} w, \text{ falls }val_{D,I,\beta}(t_1)=val_{D,I,\beta}(t_2) \\ 
+    f, \text{ falls }val_{D,I,\beta}(t_1)\neq val_{D,I,\beta}(t_2)
+    \end{cases}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Quantoren}
+  \begin{align*}
+    \beta^d_{x_i}:Var_{PL}\rightarrow D: x_j \rightarrow \begin{cases} \beta(x_j), \text{ falls } i\neq j\\ 
+    d, \text{ falls } i=j\end{cases}
+  \end{align*}
+  \begin{align*}
+    val_{D,I,\beta}(\forall x_i F)= \begin{cases} w, \text{ falls für jedes $d\in D$ und $\beta '=\beta_{x_i}^d$ :} val_{D,I,\beta '}(F)=w \\ 
+    f, \text{ sonst} \end{cases}
+  \end{align*}
+  \begin{align*}
+    val_{D,I,\beta}(\exists x_i F)= \begin{cases} w, \text{ falls für mind. $d\in D$ und $\beta '=\beta_{x_i}^d$ :} val_{D,I,\beta '}(F)=w \\ 
+    f, \text{ sonst} \end{cases}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Beispiele}
+  \begin{itemize}
+    \item $D=\mathbb{N}_0$, $I(c)=0$, $I(f)$ Addition, $I(R)$ kleiner oder gleich
+    \item $\beta(x)=3$, $\beta(y)=42$
+    \item $val_{D,I,\beta}(R(y,c))=?$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Beispiele}
+  \begin{itemize}
+    \item $D=\mathbb{N}_0$, $I(c)=0$, $I(f)$ Addition, $I(R)$ kleiner oder gleich
+    \item $\beta(x)=3$, $\beta(y)=42$
+    \item $val_{D,I,\beta}(R(y,c))=f$
+    \item weil $\beta(y)> I(c)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Beispiele}
+  \begin{itemize}
+    \item $D=\{a,b\}^+$, $I(c)=bb$, $I(f)$ Konkatenation
+    \item $I(R)$ hat gleich viele a's
+    \item $\beta(x)=a$, $\beta(y)=abba$
+    \item $val_{D,I,\beta}(f(f(x,c),y)=?$
+    \item $val_{D,I,\beta}(R(f(y,x),c))=?$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Beispiele}
+  \begin{itemize}
+    \item $D=\{a,b\}^+$, $I(c)=bb$, $I(f)$ Konkatenation
+    \item $I(R)$ hat gleich viele a's
+    \item $\beta(x)=a$, $\beta(y)=abba$
+    \item $val_{D,I,\beta}(f(f(x,c),y)=abbabba$
+    \item $val_{D,I,\beta}(R(f(y,x),c))=f$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Allgemeingültigkeit}
+  Eine prädikatenlogische Formel heißt allgemeingültig, wenn (D, I) und jede passende Variablenbelegung $\beta$ gilt: $val_{D,I,\beta}(F) = w$.\\
+  Bsp.
+  \begin{align*}
+    (\forall x_i (G\rightarrow H)) \rightarrow((\forall x_i G) \rightarrow(\forall x_i H))
+  \end{align*}
+\end{frame}
+
+\begin{frame}{freie und gebundene Vorkommen}
+  Wenn in einer prädikatenlogischen Formel G in einem Term eine Variable x steht, dann spricht man auch von einem Vorkommen der Variablen x in G. (Die Anwesenheit einer Variablen unmittelbar hinter einem Quantor zählt nicht als Vorkommen.)
+\end{frame}
+
+\begin{frame}{freie und gebundene Vorkommen}
+  \begin{itemize}
+    \item Für jede Formel G, die atomar ist, sind alle Vorkommen von Variablen frei
+    \item Für jede Formel G der Form $(\forall x_i H)$ oder $(\exists x_i H)$ ist ist jedes Vorkommen von x in H gebunden
+    \item Beispiel: $\forall x(R(x,y)\land \exists y R(x,y))$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Substitutionen}
+  Es ist möglich Variablen einer prädikatenlogischen Formel durch Terme zu ersetzen. Eine Substitution ist eine Abbildung $\sigma:Var_{PL}\rightarrow L_{Ter}$ \\
+  $\sigma_{\{x/c,y/f(x)\}}$:
+  \begin{align*}
+    \sigma(x)&=c\\
+    \sigma(y)&=f(x)\\
+    \sigma(z)&=z , z\notin \{x,y\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Kollisionsfrei}
+ Eine Substitution $\sigma$ heiße kollisionsfrei für eine Formel G, wenn für jede Variable $x_i$, die durch $\sigma$ verändert wird (also $\sigma(x_i) \neq x_i$) und jede Stelle eines freien Vorkommens von $x_i$ in G gilt: Diese Stelle liegt nicht im Wirkungsbereich eines Quantors $\forall x_j$ oder $\exists x_j$, wenn $x_j$ eine Variable ist, die in $\sigma(x_i)$ vorkommt.
+\end{frame}
+
+\begin{frame}{Beispiel}
+  Kollisionsfrei:
+  \begin{itemize}
+    \item $G=S(x)\land \forall x(R(x,y))$
+    \item $\sigma_{\{x/f(y),y/c\}}(G)=S(f(y))\land \forall x(R(x,c))$
+  \end{itemize}
+  nicht Kollisionsfrei:
+  \begin{itemize}
+    \item $G=\exists y(R(y,c)\land R(x,c))$
+    \item $\sigma_{\{x/f(y),y/c\}}(G)=\exists y(R(y,c)\land R(f(y),c))$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A2}
+  Beantworten Sie für jede der folgenden prädikatenlogischen Formeln die Frage: \glqq Ist die Formel allgemeingültig?\grqq
+  \begin{itemize}
+    \item[(i)] $(\lnot\exists x: P(x)) \leftrightarrow (\forall x:\lnot P(x))$
+    \item[(ii)] $(\forall x\exists y\exists z: Q(x,y,z))\rightarrow(\exists y\forall x\exists z:Q(x,y,z))$
+    \item[(iii)] $(\exists z\exists y\forall x: Q(x,y,z))\rightarrow (\forall x\exists y\exists z:Q(x,y,z))$
+  \end{itemize}
+  Dabei ist $P$ ein einstelliges Relationssymbol und $Q$ ein dreistelliges Relationssymbol.
+  \pause
+  \begin{itemize}
+    \item[(i)] Ja
+    \pause
+    \item[(ii)] Nein
+    \pause
+    \item[(iii)] Ja
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A2}
+  Formulieren Sie die folgenden Aussagen als prädikatenlogische Formeln über dem Universum aller Menschen:
+  \begin{itemize}
+    \item[(i)] Jeder Student außer Tom lächelt.
+    \item[(ii)] Jeder mag jeden, der sich nicht selbst mag.
+  \end{itemize}
+  \pause
+  \begin{itemize}
+    \item[(i)] $\forall x(student(x)\rightarrow (\lnot Tom(x) \leftrightarrow lächelt(x)))$
+    \pause
+    \item[(ii)] $\forall x \forall y (\lnot mag(y,y)\rightarrow mag(x,y))$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A2}
+  Gegeben sei die prädikatenlogische Formel
+  \begin{align*}
+    \forall x\forall y (R(x,y)\rightarrow R(f(x),f(y)))
+  \end{align*}
+  und eine Interpretation $(D,I)$ dafür, wobei das Universum $D$ die Menge $\{a,b\}$ sei und die Interpretationsabbildung $I$ gegeben sei durch $I(f)(a)=b$, $I(f)(b)=a$ und $I(R)=\{(a,a),(a,b)\}$.
+  \begin{itemize}
+    \item[(i)] Geben Sie den Wahrheitswert der Formel in der Interpretation an.
+    \item[(ii)] Erläutern sie kurz Ihre Antwort aus Teil (i):
+  \end{itemize}
+  \pause
+  Wahrheitswert: Falsch.
+\end{frame}

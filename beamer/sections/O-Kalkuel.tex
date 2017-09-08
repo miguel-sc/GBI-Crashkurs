@@ -1,0 +1,130 @@
+\section{Quantitative Aspekte}
+
+\begin{frame}{$\asymp$-Relation}
+  $f:\mathbb{N}_0 \to \mathbb{R}_0^+$ wächst asymptotisch oder größenordnungsmäßig so schnell wie $g:\mathbb{N}_0 \to \mathbb{R}_0^+$ wenn gilt:
+  \begin{itemize}
+    \item $\exists c,c'\in \mathbb{R}^+: \exists n_0\in \mathbb{N}_0: \forall n\geq n_0: c f(n)\leq g(n) \leq c' f(n)$
+    \item $f(n)\asymp g(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\asymp$-Relation}
+  Beispiel:
+  \begin{itemize}
+    \item $g(n)=n^3+3n^2$
+    \item $f(n)=8n^3$
+    \pause
+    \item $g(n)=n^3+3n^2\leq n^3+3n^3=4n^3=0.5f(n)$\\
+      $\Rightarrow g(n)\leq 0.5f(n)$
+    \pause
+    \item $g(n)=n^3+3n^2\geq n^3=\frac{1}{8}f(n)$\\
+      $\Rightarrow g(n)\geq \frac{1}{8}f(n)$
+    \item $\Rightarrow \frac{1}{8}f(n)\leq g(n)\leq 0.5f(n)$
+    \item $f(n)\asymp g(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\asymp$-Relation}
+  Beispiel:
+  \begin{itemize}
+    \item $g(n)=2^n$
+    \item $f(n)=3^n$
+    \pause
+    \item $g(n)\geq cf(n)$
+    \item $2^n \geq c3^n$
+    \pause
+    \item $(\frac{2}{3})^n\geq c$
+    \pause
+    \item Kein $c>0$ erfüllt diese Ungleichung.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\Theta$-Notation}
+  \begin{itemize}
+    \item $\Theta(f)$ ist die Menge aller Funktionen die größenordnungsmäßig so schnell wachsen wie f
+    \item $\Theta (f)=\{g|g\asymp f\}$
+    \item Beispiel: $\Theta(8n^3)=\{n^3+3n^2,100n^3-10n,0.01n^3+1000, ...\}$
+    \item Alle Polynome gleichen Grades wachsen gleich schnell
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{O-Notation}
+  \begin{itemize}
+    \item $O(f)$ ist die Menge aller Funktionen die größenordnungsmäßig höchstens so schnell wachsen wie f
+    \item $O(f)=\{g|g\preceq f\}$\\$=\{g|\exists c\in \mathbb{R}^+: \exists n_0\in \mathbb{N}_0: \forall n\geq n_0:g(n) \leq cf(n)\}$
+    \item Beispiele:
+      \begin{itemize}
+        \item $n^2 \in O(8n^3)$
+        \item $3n \in O(n^3+3n^2)$
+        \item $n^4 \in O(n^4)$
+        \item $n^a \in O(n^b)$ für $a\leq b$
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$\Omega$-Notation}
+  \begin{itemize}
+    \item $\Omega(f)$ ist die Menge aller Funktionen die größenordnungsmäßig mindestens so schnell wachsen wie f
+    \item $\Omega (f)=\{g|g\succeq f\}$\\$=\{g|\exists c\in \mathbb{R}^+: \exists n_0\in \mathbb{N}_0: \forall n\geq n_0:cf(n)\leq g(n)\}$
+    \item Beispiele:
+      \begin{itemize}
+        \item $n^2 \in \Omega(log(n))$
+        \item $e^n \in \Omega(n^a)$
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Wachstum wichtiger Funktionen}
+  \begin{align*}
+    1 \preceq log(x) \preceq \sqrt{x} \preceq x \preceq xlog(x) \preceq x^2 \preceq 2^x < x!
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Quiz}
+  \begin{itemize}
+    \item $sin(x)+2\in \Theta(1)$? \pause Ja, weil $1\leq sin(x)+2 \leq 3\cdot 1$
+    \pause
+    \item $log_a(x)\in \Theta(log_b(x))$? \pause Ja, weil $log_b(x)=\frac{log_a(x)}{log_a(b)}$
+    \pause
+    \item $log(x)\in\Omega (n^{0.1})$? \pause Nein.
+    \pause
+    \item $nlog(n) \in \Theta (log(n!))$? \pause Ja, weil
+      \begin{align*}
+        log(n!)&=log(1)+log(2)+ ... +log(n-1)+log(n)\\
+        &\leq log(n) + log(n)+ ... + log(n)+ log(n)=nlog(n)\\
+        &\geq log(n/2)+log(n/2)+ ... + log(n/2)=n/2log(n/2)
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Unvergleichbare Funktionen}
+  Es gibt unvergleichbare Funktionen. Beispiel:
+  \begin{align*}
+    f &=
+    \begin{cases}
+      1 & \text{ falls $n$ gerade} \\
+      n & \text{ falls $n$ ungerade} \\
+    \end{cases} \\
+    g &=
+    \begin{cases}
+      n & \text{ falls $n$ gerade} \\
+      1 & \text{ falls $n$ ungerade} \\
+    \end{cases} \\
+  \end{align*}
+  $f \notin O(g)$ und $g \notin O(f)$
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2013/14 A1}
+  Geben Sie eine Funktion $f:\mathbb{N}_0\rightarrow \mathbb{R}_0^+$ an, für die gilt:
+  \begin{align*}
+    f(n)\notin O(n^3) \land f(n) \notin \Omega(n^3)
+  \end{align*}
+  \pause
+ \begin{align*}
+    f =
+    \begin{cases}
+      1 & \text{ falls $n$ gerade} \\
+      n^4 & \text{ falls $n$ ungerade} \\
+    \end{cases}
+  \end{align*}
+\end{frame}

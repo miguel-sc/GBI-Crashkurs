@@ -1,0 +1,294 @@
+\section{Turingmaschinen}
+
+\begin{frame}{Turingmaschine - anschaulich}
+  \begin{minipage}{0.5\textwidth}
+    \begin{tikzpicture}[start chain=1 going right,start chain=2 going below,node distance=-0.15mm]
+
+	\node [on chain=2] {Band};
+	\node [on chain=1] at (-1.5,-.4) {\ldots};  
+
+	\foreach \x in {1,2,...,11} {
+		\x, \node [draw,on chain=1] {\textvisiblespace};
+	} 
+
+	\node [name=r,on chain=1] {\ldots}; 
+	\node [name=k, arrow box, draw,on chain=2, arrow box arrows={east:.25cm, west:0.25cm}] at (-0.335,-.65) {};    
+	\node at (1.75,-.85) {Schreib-/Lese-Kopf};
+	\node [on chain=2] {};
+	\node [draw,on chain=2] {Programm};
+	
+	\chainin (k) [join]; 
+    \end{tikzpicture}
+  \end{minipage}
+  \pause
+  \begin{minipage}{0.48\textwidth}
+    \begin{itemize}
+      \item $f:$ In welchen Zustand geht die Maschine?
+      \item $g:$ Was schreibt die Maschine auf das Band?
+      \item $m:$ Wohin bewegt sich der Kopf?
+    \end{itemize}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Turingmaschinen}
+  Beispiel einer Turingmaschine:
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,initial text=,node distance=2cm,auto,->,>=stealth,baseline=(B.base)]
+
+	\node[state,initial]  (A)          {$A$};
+	\node[state]          (B) [above right of=A] {$B$};
+	\node[state]          (C) [right of=B] {$C$};
+	\node[state]          (E) [below right of=A] {$E$};
+	\node[state]          (D) [right of=E] {$D$};
+  
+	\path[->]
+		(A) edge node {$1|XR$} (B)
+		(B) edge [loop above] node {$1|1R$} ()
+			edge node {$\Box | \Box R$} (C)
+		(C) edge [loop above] node {$1|1R$} ()
+			edge node {$\Box|1L$} (D)
+		(D) edge [loop below] node  {$1|1L$} ()
+			edge node  {$\Box | \Box L$} (E)
+		(E) edge [loop below] node  {$1|1L$} ()
+			edge node {$X|1R$} (A) ;
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Turingmaschinen}
+  \begin{center}
+    \begin{tabular}{cccccc}
+      \toprule
+      & A & B & C & D & E \\
+      \midrule
+      $\Box$ & & $C,\Box ,R$ & $D, 1, L$ & $E, \Box , L$ & \\
+      $1$ & $B, X, R$ & $B, 1, R$ & $C, 1 R$ & $D, 1, L$ & $E, 1, L$ \\
+      $X$ & & & & & $A, 1, R$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Turingmaschinen}
+  \begin{minipage}[t!]{0.5\textwidth}
+    \begin{center}
+      \begin{tabular}{cccccc}
+        & A & & & & \\
+        $\Box$ & 1 & 1 & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & B & & & \\
+        $\Box$ & X & 1 & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & B & & \\
+        $\Box$ & X & 1 & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & & C & \\
+        $\Box$ & X & 1 & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & D & & \\
+        $\Box$ & X & 1 & $\Box$ & 1 & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & E & & & \\
+        $\Box$ & X & 1 & $\Box$ & 1 & $\Box$ \\
+      \end{tabular}
+    \end{center}
+  \end{minipage}
+  \begin{minipage}[t!]{0.4\textwidth}
+    \begin{center}
+      \begin{tabular}{cccccc}
+        & E & & & & \\
+        $\Box$ & X & 1 & $\Box$ & 1 & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & A & & & \\
+        $\Box$ & 1 & 1 & $\Box$ & 1 & $\Box$ \\
+      \end{tabular}
+      .\\
+      .\\
+      .\\
+      Endkonfiguration: 
+      \begin{tabular}{cccccc}
+        & & & A & & \\
+        $\Box$ & 1 & 1 & $\Box$ & 1 & 1 \\
+      \end{tabular}
+    \end{center}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A7}
+  Die Turingmaschine $T$ sei graphisch gegeben durch
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=4cm,auto,initial text=,>=stealth]
+
+	\node[state, initial] (0) {A};
+	\node[state] [right of = 0] (1) {B};
+	
+	\path[->]
+		(0) edge [loop right] node [right] {$0|1L$} ()
+			edge [bend left] node [above] {$\Box |1N$} (1)
+		(1) edge [loop right] node [right] {$1|0R$} ()
+			edge [bend left] node [below] {$\Box |0N$} (0);		
+	
+    \end{tikzpicture}
+  \end{center}
+  Dabei bedeuten $L$ und $R$, dass der Kopf nach links bzw. rechts bewegt wird und $N$, dass er nicht bewegt wird.
+  Geben Sie die ersten elf Konfigurationen an, die die Turingmaschine $T$ durchläuft, wenn zu Beginn alle Felder mit dem Blanksymbol beschriftet sind.
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A7}
+  \begin{minipage}[t!]{0.5\textwidth}
+    \begin{center}
+      \begin{tabular}{cccccc}
+        & & A & & & \\
+        $\Box$ & $\Box$ & $\Box$ & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & B & & & \\
+        $\Box$ & $\Box$ & 1 & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & B & & \\
+        $\Box$ & $\Box$ & 0 & $\Box$ & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & A & & \\
+        $\Box$ & $\Box$ & 0 & 0 & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & A & & & \\
+        $\Box$ & $\Box$ & 0 & 1 & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & A & & & & \\
+        $\Box$ & $\Box$ & 1 & 1 & $\Box$ & $\Box$ \\
+      \end{tabular}
+    \end{center}
+  \end{minipage}
+  \begin{minipage}[t!]{0.4\textwidth}
+    \begin{center}
+      \begin{tabular}{cccccc}
+        & B & & & & \\
+        $\Box$ & 1 & 1 & 1 & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & B & & & \\
+        $\Box$ & 0 & 1 & 1 & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & B & & \\
+        $\Box$ & 0 & 0 & 1 & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & & B & \\
+        $\Box$ & 0 & 0 & 0 & $\Box$ & $\Box$ \\
+      \end{tabular}
+      \begin{tabular}{cccccc}
+        & & & & A & \\
+        $\Box$ & 0 & 0 & 0 & 0 & $\Box$ \\
+      \end{tabular}
+    \end{center}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A7}
+  Für jede nicht-negative ganze Zahl $n\in\mathbb{N}_0$ sei $\varphi (n)$ die Anzahl der Schirtte, die die Turingmaschine $T$ bei Eingabe $\epsilon$ benötigt, bis das Wort $0^{2n}$ auf dem Band steht.
+  \begin{itemize}
+    \item[(i)] Geben Sie $\varphi (0)$, $\varphi (1)$ und $\varphi (2)$ an.
+    \item[(ii)] Vervollständigen Sie die Rekursionsformel
+      \begin{align*}
+        \varphi (n+1) = \varphi (n) + ...
+      \end{align*}
+      durch einen arithmetischen Ausdruck, in dem $n$ vorkommt.
+  \end{itemize}
+  Geben Sie eine Abbildung $\psi : \mathbb{N}_0\rightarrow\mathbb{N}_0$ so an, dass $\varphi\in\Theta (\psi )$ gilt.\\
+  Dazu dürfen Sie \textit{keine} trigonometrischen Funktionen (cos,sin, usw.) verwenden.
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2015/16 A7}
+  \begin{itemize}
+    \item $\varphi (0)=0$
+    \item $\varphi (1)=3$
+    \item $\varphi (2)=10$
+    \pause
+    \item $\varphi (n+1)=\varphi (n)+4n+3$
+    \pause
+    \item $\varphi (n) \in \Theta (\psi)$
+    \pause
+    \item $\varphi (n) \in \Theta (n^2)$
+    \pause
+    \item $\varphi (n) \in \Theta (\sum_{i=0}^{n-1}(4i+3))$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2013 A7}
+  Sei $T$ die Turingmaschine, die als Eingabe ein wort $w$ über $\{0,X\}$ erhält und folgenden Homomorphismus $h$ berechnet\\
+  $h(0)=0$, $h(X)=\epsilon$,\\
+  so dass nach der Abarbeitung $h(w)$ auf dem Band steht.\\
+  Geben Sie $T$ explizit grafisch an.
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2013 A7}
+  Sei $T$ die Turingmaschine, die als Eingabe ein wort $w$ über $\{0,X\}$ erhält und folgenden Homomorphismus $h$ berechnet\\
+  $h(0)=0$, $h(X)=\epsilon$,\\
+  so dass nach der Abarbeitung $h(w)$ auf dem Band steht.\\
+  Idee:
+  \begin{itemize}
+    \item Finde eine 0 rechts von X
+    \item Ersetze die 0 durch ein X
+    \item Ersetze das erste X von links durch eine 0
+    \item Wiederhole die Schritte
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2013 A7}
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,initial text=,node distance=2.5cm,auto,->,>=stealth,baseline=(B.base)]
+
+	\node[state,initial]  (A)          {$A$};
+	\node[state]          (B) [above right of=A] {$B$};
+	\node[state]          (C) [below right of=B] {$C$};
+	\node[state]          (D) [below right of=A] {$D$};
+	\node[state]          (E) [above right of=B] {$E$};
+  
+	\path[->]
+		(A) edge node {$X|XR$} (B)
+			edge [loop right] node {$0|0R$} ()
+		(B) edge [loop above] node {$X|XR$} ()
+			edge node {$0 | X L$} (C)
+			edge node [right] {$\Box | \Box L$} (E)
+		(C) edge [loop right] node {$X|XL$} ()
+			edge node {$0|0R,\Box | \Box R$} (D)
+		(D) edge node  {$X | 0 R$} (A)
+		(E) edge [loop right] node  {$X|\Box L$} ();
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2013 A7}
+  \begin{itemize}
+    \item Geben Sie in Abhängigkeit der Länge des Eingabewortes $w$ eine möglichst scharfe obere Schranke in O-Notation für die worst case Lautzeit von $T$ an.
+    \item Geben Sie in Abhängigkeit der Länge des Eingabewortes $w$ eine Eingabe an, deren Bearbeitung (bis auf einen konstanten Faktor) worst case Laufzeit benötigt.
+    \item Geben Sie in Abhängigkeit der Länge des Eingabewortes $w$ eine Eingabe an, deren Bearbeitung asymptotisch nicht worst case Laufzeit benötigt.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2013 A7}
+  Welche Wörter haben die schlechteste Laufzeit?
+  \begin{itemize}
+    \item $w=00000000$? \pause Nein
+    \pause
+    \item $w=XXXXXXXX$? \pause Nein
+    \pause
+    \item $w=XXXX0000$
+  \end{itemize}
+  worst case Laufzeit?
+  \pause
+  \begin{itemize}
+    \item $Time_T(n)\in O(n^2)$
+  \end{itemize}
+\end{frame}

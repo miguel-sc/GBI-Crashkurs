@@ -1,0 +1,257 @@
+\section{MIMA}
+
+\begin{frame}{MIMA}
+  \begin{itemize}
+    \item Adressen: 20 bit
+    \item Speicherwerte: 24 bit
+    \item (die meisten) Befehle: 4 bit + 20 bit
+    \item z.B. LDC 10
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Beispiel: Multiplikation}
+  \begin{align*}
+    &\text{LDC}\; 0\\
+    &\text{STV}\; prod\\
+    start:\;&\text{LDC}\; 0\\
+    &\text{NOT}\; \\
+    &\text{ADD}\; b\\
+    &\text{STV}\; b\\
+    &\text{JMN}\; end\\
+    &\text{LDV}\; prod\\
+    &\text{ADD}\; a\\
+    &\text{STV}\; prod\\
+    &\text{JMP}\; start\\
+    end:\;&\text{HALT}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Befehle}
+  \begin{itemize}
+    \item \textbf{LDC const} Lädt eine 20 bit Zahl in den Akkumulator.
+    \pause
+    \item \textbf{LDV adr} Lädt den Speicherwert von adr in den Akkumulator.
+    \pause
+    \item \textbf{STV adr} Speichert den Wert vom Akkumulator in adr.
+    \pause
+    \item \textbf{LDIV adr} Lädt den Speicherwert vom Speicherwert von adr $M(M(adr))$ in den Akkumulator.
+    \pause
+    \item \textbf{STIV adr} Speichert den Wert vom Akkumulator in $M(M(adr))$.
+    \pause
+    \item \textbf{ADD adr} Addiert den Speicherwert von adr auf den Akkumulator und speichert das Ergebnis im Akkumulator.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Befehle}
+  \begin{itemize}
+    \item \textbf{AND adr} Bitweise AND vom Speicherwert von adr mit dem Akkumulator. Ergebnis wird im Akkumulator gespeichert.
+    \pause
+    \item \textbf{OR adr} Bitweise OR.
+    \pause
+    \item \textbf{XOR adr} Bitweise XOR.
+    \pause
+    \item \textbf{NOT} Invertiert die Bits des Akkumulators.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Befehle}
+  \begin{itemize}
+    \item \textbf{RAR} Rotation der Akku-Bits nach rechts. Beispiel: $101100 \rightarrow 010110$
+    \pause
+    \item \textbf{EQL adr} Vergleicht den Speicherwert von adr mit dem Akkumulator. Wenn die Zahlen gleich sind wird die Zweierkomplementdarstellung von -1 im Akkumulator gespeichert, wenn nicht dann wird die Zahl 0 im Akkumulator gespeichert.
+    \pause
+    \item \textbf{JMP adr} Programm springt an die Adresse adr und setzt mit dem Befehl in adr fort.
+    \pause
+    \item \textbf{JMN adr} Programm springt an die Adresse adr, falls der Akkumulator negativ ist.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Wichtige Blöcke}
+  Lade -1:
+  \begin{align*}
+    &LDC\text{ }0\\
+    &NOT
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Wichtige Blöcke}
+  Addiere Konstante c:
+  \begin{align*}
+    &LDC\text{ }c\\
+    &ADD\text{ }a\\
+    &STV\text{ }a
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Wichtige Blöcke}
+  Addiere negative Konstante $-c$:
+  \begin{align*}
+    &LDC\text{ }c-1\\
+    &NOT\\
+    &ADD\text{ }a\\
+    &STV\text{ }a
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Wichtige Blöcke}
+  Addiere negative Konstante $-5$:
+  \begin{align*}
+    &LDC\text{ }4\\
+    &NOT\\
+    &ADD\text{ }a\\
+    &STV\text{ }a
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Wichtige Blöcke}
+  Verwandle $a \rightarrow -a$:
+  \begin{align*}
+    &\text{LDV}\; a\\
+    &\text{NOT}\; \\
+    &\text{STV}\; a\\
+    &\text{LDC}\; 1\\
+    &\text{ADD}\; a\\
+    &\text{STV}\; a\\
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Wichtige Blöcke}
+  $n$ Schleifendurchläufe:
+  \begin{align*}
+    start: &LDC\text{ }0\\
+    &NOT\\
+    &ADD\text{ }n\\
+    &STV\text{ }n\\
+    &JMN\text{ }end\\
+    &Block\\
+    &JMP\text{ }start
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Beispiel: Division}
+  \begin{minipage}[t!]{0.5\textwidth}
+    \begin{align*}
+      &\text{LDC}\; 0\\
+      &\text{STV}\; div\\
+      &\text{LDV}\; b\\
+      &\text{NOT}\; \\
+      &\text{STV}\; b\\
+      &\text{LDC}\; 1\\
+      &\text{ADD}\; b\\
+      &\text{STV}\; b
+    \end{align*}
+  \end{minipage}
+  \begin{minipage}[t!]{0.4\textwidth}
+    \begin{align*}
+      start:\;&\text{LDV}\; a\\
+      &\text{ADD}\; b\\
+      &\text{STV}\; a\\
+      &\text{JMN}\; end\\
+      &\text{LDC}\; 1\\
+      &\text{ADD}\; div\\
+      &\text{STV}\; div\\
+      &\text{JMP}\; start\\
+      end:\;&\text{HALT}
+    \end{align*}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2015/16 A5.2}
+  Es seien $a_1$ und $a_2$ zwei verschiedene 20bit Adressen. Im Speicher stehe in Adresse $a_1$ die Zweierkomplementdarstellung einer nicht-negativen ganzen Zahl $x$, für die $2^x$ mit 24bit in Zweierkomplementdarstellung darstellbar ist. Ergänzen Sie die fehlenden Konstanten und Adressen im unvollständigen Minimalmaschinenprogramm derart, dass nach dessen Ausführung $2^x$ in Zweierkomplementdarstellung im Speicher bei Adresse $a_2$ steht. Beachten Sie, dass alle arithmetischen Ausdrücke, in denen $x$ vorkommt, keine Konstanten sind, und, dass $2^0=1$ gilt.
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2015/16 A5.2}
+  \begin{align*}
+    &LDC\\
+    &STV\\
+    while: &LDC\\
+    &NOT\\
+    &ADD\\
+    &STV\\
+    &JMN \text{ } end\\
+    &LDV\\
+    &ADD\\
+    &STV\\
+    &JMP\text{ }while\\
+    end: &HALT
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2015/16 A5.2}
+  \begin{align*}
+    &LDC\text{ }1 \\
+    &STV\text{ }a_2\\
+    while: &LDC\\
+    &NOT\\
+    &ADD\\
+    &STV\\
+    &JMN \text{ } end\\
+    &LDV\\
+    &ADD\\
+    &STV\\
+    &JMP\text{ }while\\
+    end: &HALT
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2015/16 A5.2}
+  \begin{align*}
+    &LDC\text{ }1 \\
+    &STV\text{ }a_2\\
+    while: &LDC\text{ }0\\
+    &NOT\\
+    &ADD\text{ }a_1\\
+    &STV\text{ }a_1\\
+    &JMN \text{ } end\\
+    &LDV\\
+    &ADD\\
+    &STV\\
+    &JMP\text{ }while\\
+    end: &HALT
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2015/16 A5.2}
+  \begin{align*}
+    &LDC\text{ }1 \\
+    &STV\text{ }a_2\\
+    while: &LDC\text{ }0\\
+    &NOT\\
+    &ADD\text{ }a_1\\
+    &STV\text{ }a_1\\
+    &JMN \text{ } end\\
+    &LDV\text{ }a_2\\
+    &ADD\text{ }a_2\\
+    &STV\text{ }a_2\\
+    &JMP\text{ }while\\
+    end: &HALT
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2014/15 A5.2}
+  Es seien $a_1$ und $a_2$ zwei verschiedene Adressen. Welche Zahlen in Zweierkomplementdarstellung stehen nach Ausführung des Programms in den Adressen $a_1$ und $a_2$ im Speicher?
+  \begin{align*}
+    &LDV\text{ }a_1 \\
+    &XOR\text{ }a_2\\
+    &STV\text{ }a_1\\
+    &LDV\text{ }a_2\\
+    &XOR\text{ }a_1\\
+    &STV\text{ }a_2\\
+    &LDV\text{ }a_1\\
+    &XOR\text{ }a_2\\
+    &STV\text{ }a_1
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2014/15 A5.2}
+  Beispiel mit zwei 8 bit Zahlen:
+  \begin{align*}
+    &a_1 &a_2\\
+    &11101001 &00100111\\
+    &11001110 &00100111\\
+    &11001110 &11101001\\
+    &00100111 &11101001
+  \end{align*}
+  \pause
+  Die Speicherwerte der Adressen $a_1$ und $a_2$ werden vertauscht.
+\end{frame}

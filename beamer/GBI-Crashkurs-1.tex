@@ -1,0 +1,167 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+
+\usepackage{templates/beamerthemekit}
+% \usepackage{templates/beamerthemekitwide}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx} 
+\usepackage{booktabs}
+\usepackage{mathabx}
+\usepackage{eurosym}
+\usepackage{nameref}
+
+\makeatletter
+\newcommand*{\currentname}{\@currentlabelname}
+\makeatother
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%\titleimage{mypicture}
+
+%% TITLE LOGO
+
+% for a custom logo on the front page, copy your file into the 'logos'
+% directory, insert the filename in the line below and uncomment it
+
+%\titlelogo{mylogo}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+\usepackage{templates/tikzkit}
+\usepackage{templates/tikzuml}
+\usetikzlibrary{matrix}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata}
+\usetikzlibrary{shapes.arrows,chains}
+
+% the presentation starts here
+
+\title[GBI Crashkurs]{GBI Crashkurs WS 2016/17}
+%\subtitle{Tag 1}
+\author{Miguel Santos Correa}
+\date{22. Februar 2017}
+
+%\institute{Chair for Software Design and Quality}
+
+% Bibliography
+
+%\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+%\addbibresource{templates/example.bib}
+%\bibhang1em
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+\selectlanguage{ngerman}
+
+\setbeamercovered{invisible}
+
+%title page
+\begin{frame}
+  \begin{center}
+    \huge\inserttitle\\
+    \vskip 1.75mm
+    \normalsize
+    \insertauthor\\
+    \insertdate\\
+    \vskip 1.75mm
+    \large
+    miguelsantoscorrea@gmail.com\\
+    \vskip 1.75mm
+    https://github.com/miguel-sc
+  \end{center}
+\end{frame}
+
+%preface
+\begin{frame}{Altklausuren}
+  Aufgabentypen:
+  \begin{itemize}
+    \item Multiple Choice
+    \item Vollständige Induktion
+    \item Relationen
+    \item Kontextfreie Grammatiken
+    \item Graphen
+    \item Reguläre Ausdrücke / Endliche Akzeptoren
+    \item Turingmaschinen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Themen}
+  \begin{itemize}
+    \item Huffman-Codierung
+    \item O-Kalkül
+    \item Prädikatenlogik
+    \item MIMA
+    \item Hoare-Kalkül
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Themen}
+  \begin{itemize}
+    \item viele Themen
+    \item sehr oberflächlich
+  \end{itemize}
+  $\rightarrow$ Skript lernen!
+  \pause
+  \begin{itemize}
+    \item Aufgaben sind nicht schwer
+    \item aber nur mit Übung
+  \end{itemize}
+  $\rightarrow$ Altklausuren rechnen!
+\end{frame}
+
+%table of contents
+\begin{frame}{Gliederung}
+  \tableofcontents
+\end{frame}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \begin{center}
+      \huge \currentname
+    \end{center}
+  \end{frame}
+}
+
+%sections
+\input{sections/Relationen}
+\input{sections/Grammatik}
+\input{sections/Induktion}
+\input{sections/Huffman}
+
+\end{document}

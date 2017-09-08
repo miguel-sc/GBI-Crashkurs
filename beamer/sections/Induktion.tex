@@ -1,0 +1,161 @@
+\section{Vollständige Induktion}
+
+\begin{frame}{Prinzip der vollständigen Induktion}
+  Zu beweisen ist $\forall n\in \mathbb{N}_0:A(n)$. Man zeigt:
+  \begin{itemize}
+    \item Für ein festes, aber beliebiges n gilt: $A(n)\Rightarrow A(n+1)$
+    \item A(0) ist wahr
+    \item Gezeigt wurde: $A(0)\Rightarrow A(1) \Rightarrow A(2) \Rightarrow ...$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vollständige Induktion}
+  Mit der Definition
+  \begin{align*}
+    x_0     &= 0 \\
+    \forall n\in\mathbb{N}_0: x_{n+1} &= x_n + 2 \\
+  \end{align*}
+  kann man die Hypothese
+  $
+    \forall n\in\mathbb{N}_0:  x_n = 2n
+  $
+  beweisen.
+\end{frame}
+
+\begin{frame}{Vollständige Induktion}
+  \textbf{Induktionsanfang}
+  \begin{itemize}
+    \item Zu zeigen: $x_n=2n$ für n=0
+    \item $x_0=0$ nach beiden Definitionen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vollständige Induktion}
+  \textbf{Induktionsvorraussetzung}
+  \begin{itemize}
+    \item Für ein beliebiges aber festes $n$ gilt:  $x_n = 2n$
+    \item Wichtig: n ist nicht variabel, die Induktionsvorraussetzung gilt nicht für alle n!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vollständige Induktion}
+  \textbf{Induktionsschluss}
+  \begin{itemize}
+    \item Zeige: Für das beliebige aber feste $n$ gilt: $x_{n+1} = 2(n+1)$
+    \item Beweis:  
+      \begin{align*}
+        x_{n+1} &= x_n + 2 &&\text{ nach Definition}\\
+        &= 2n  + 2    && \text{ nach Induktionsvoraussetzung} \\
+        &= 2(n+1) && \text{ fertig}\\
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2014 A5}
+  Gegeben sei eine natürliche Zahl $a\in \mathbb{N}_+$. Die Abbildung $S:\mathbb{N}_0\rightarrow \mathbb{Z}$ sei induktiv definiert durch 
+  \begin{align*}
+    S(0)&=1,\\
+    \forall k\in\mathbb{N}_0:S(k+1)&=a^{k+1}+S(k).
+  \end{align*}
+  Beweisen Sie durch vollständige Induktion, dass gilt:
+  \begin{align*}
+    \forall k\in\mathbb{N}_0:(a-1)S(k)=a^{k+1}-1.
+  \end{align*}
+\end{frame}
+
+\begin{frame}[t]{Klausuraufgabe: SS 2014 A5}
+  \begin{align*}
+    S(0)&=1\\
+    \forall k\in\mathbb{N}_0:S(k+1)&=a^{k+1}+S(k)\\
+    \text{zu zeigen }\forall k\in\mathbb{N}_0:(a-1)S(k)&=a^{k+1}-1
+  \end{align*}
+  \pause
+  \textbf{Induktionsanfang}\\
+  $k=0$: Dann ist $(a-1)S(0)=a-1=a^{0+1}-1$
+\end{frame}
+
+\begin{frame}[t]{Klausuraufgabe: SS 2014 A5}
+  \begin{align*}
+    S(0)&=1\\
+    \forall k\in\mathbb{N}_0:S(k+1)&=a^{k+1}+S(k)\\
+    \text{zu zeigen }\forall k\in\mathbb{N}_0:(a-1)S(k)&=a^{k+1}-1
+  \end{align*}
+  \textbf{Induktionsvoraussetzung}\\
+  für ein beliebiges aber festes $k$ gelte: $(a-1)S(k)=a^{k+1}-1$
+\end{frame}
+
+\begin{frame}[t]{Klausuraufgabe: SS 2014 A5}
+  \begin{align*}
+    S(0)&=1\\
+    \forall k\in\mathbb{N}_0:S(k+1)&=a^{k+1}+S(k)\\
+    \text{zu zeigen }\forall k\in\mathbb{N}_0:(a-1)S(k)&=a^{k+1}-1
+  \end{align*}
+  \textbf{Induktionsschluss $k\rightarrow k+1$}\\
+  zu zeigen: $(a-1)S(k+1)=a^{(k+1)+1}-1$
+  \pause
+  \begin{align*}
+    \action<+->{(a-1)S(k+1)&=(a-1)(a^{k+1}+S(k)) &&\text{ nach Definition}\\}
+    \action<+->{&= (a-1)a^{k+1}+(a-1)S(k)\\}
+    \action<+->{&= (a-1)a^{k+1}+a^{k+1}-1 && \text{ nach I.V.}\\}
+    \action<+->{&= a^{(k+1)+1}-1}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2012/13 A3}
+  Gegeben sei folgende Funktion $f:\{a,b\}^*\rightarrow\{a,b\}^*$:
+  \begin{align*}
+    f(\epsilon)&=\epsilon\\
+    \forall w\in\{a,b\}^*: f(aw)&=bf(w)\\
+    \forall w\in\{a,b\}^*: f(bw)&=af(w)
+  \end{align*}
+  Beweisen Sie per Induktion, dass gilt:
+  \begin{align*}
+    \forall w_1,w_2\in\{a,b\}^*: f(w_1w_2)&=f(w_1)f(w_2)
+  \end{align*}
+\end{frame}
+
+\begin{frame}[t]{Klausuraufgabe: WS 2012/13 A3}
+  \begin{align*}
+    f(\epsilon)&=\epsilon\\
+    \forall w\in A^*: f(aw)&=bf(w)\\
+    \forall w\in A^*: f(bw)&=af(w)\\
+    \text{zu zeigen }\forall w=w_1w_2\in A^n: f(w_1w_2)&=f(w_1)f(w_2)
+  \end{align*}
+  \pause
+  \textbf{Induktionsanfang}\\
+  $n=0$: $\{a,b\}^0=\{\epsilon\}$\\
+  \pause
+  $w_1=w_2=\epsilon$\\
+  \pause
+  $f(\epsilon\epsilon)=f(\epsilon)=\epsilon=\epsilon\epsilon=f(\epsilon)f(\epsilon)$
+\end{frame}
+
+\begin{frame}[t]{Klausuraufgabe: WS 2012/13 A3}
+  \begin{align*}
+    f(\epsilon)&=\epsilon\\
+    \forall w\in A^*: f(aw)&=bf(w)\\
+    \forall w\in A^*: f(bw)&=af(w)\\
+    \text{zu zeigen }\forall w=w_1w_2\in A^n: f(w_1w_2)&=f(w_1)f(w_2)
+  \end{align*}
+  \textbf{Induktionsvoraussetzung}\\
+  Für alle Wörter $w'$ mit beliebiger, aber fester Länge $n\in\mathbb{N}_0$ gelte:\\
+  $\forall w'\in A^*$ mit $w'=w_1w_2: f(w_1w_2)=f(w_1)f(w_2)$
+\end{frame}
+
+\begin{frame}[t]{Klausuraufgabe: WS 2012/13 A3}
+  \begin{align*}
+    f(\epsilon)&=\epsilon\\
+    \forall w\in A^*: f(aw)&=bf(w)\\
+    \forall w\in A^*: f(bw)&=af(w)\\
+    \text{zu zeigen }\forall w=w_1w_2\in A^n: f(w_1w_2)&=f(w_1)f(w_2)
+  \end{align*}
+  \textbf{Induktionsschritt} beliebiges $w\in A^{n+1}$\\
+  \pause
+  \begin{itemize}
+    \item $w=aw'$:
+    \pause
+    $f(w)=f(aw')=bf(w')=bf(w_1w_2)=bf(w_1)f(w_2)=f(aw_1)f(w_2)$
+    \pause
+    \item $w=bw'$: $f(w)=f(bw')=af(w')=af(w_1w_2)=af(w_1)f(w_2)=f(bw_1)f(w_2)$
+  \end{itemize}
+\end{frame}

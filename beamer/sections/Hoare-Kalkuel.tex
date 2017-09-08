@@ -1,0 +1,474 @@
+\section{Hoare-Kalkül}
+
+\begin{frame}{Hoare-Tripel}
+  Ein Hoare-Tripel $\{P\}S\{Q\}$ besteht aus einer Vorbedingung $P$, einem Programmstück $S$ und einer Nachbedingung $Q$.\\
+  Beispiel: 
+  \begin{align*}
+    &\{x=a\}\\
+    &y\leftarrow x\\
+    &\{y=a\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+    \item HT-A:\\
+      Das Hoare-Tripel $\{\sigma_{x/E}(Q)\}x\leftarrow E\{Q\}$ ist gültig.
+    \item Beispiel:\\
+      \begin{align*}
+        &\{?\}\\
+        &x\leftarrow E\\
+        &\{y=x\}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+    \item HT-A:\\
+      Das Hoare-Tripel $\{\sigma_{x/E}(Q)\}x\leftarrow E\{Q\}$ ist gültig.
+    \item Beispiel:\\
+      \begin{align*}
+        &\{y=E\}\\
+        &x\leftarrow E\\
+        &\{y=x\}
+    \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+  \item HT-S:\\
+    Sind die Hoare-Tripel $\{P\}S_1\{Q\}$ und
+    $\{Q\}S_2\{R\}$ gültig, dann auch das Tripel $\{P\}S_1;S_2\{R\}$.
+    \item Beispiel:\\
+      \begin{align*}
+        &\{a\le x\}\\
+        &y\leftarrow x\\
+        &\{a\le y\}\\
+        &\{a\le y\}\\
+        &z\leftarrow y\\
+        &\{a\le z\}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+    \item HT-S:\\
+      Sind die Hoare-Tripel $\{P\}S_1\{Q\}$ und
+      $\{Q\}S_2\{R\}$ gültig, dann auch das Tripel $\{P\}S_1;S_2\{R\}$.
+    \item Beispiel:\\
+      \begin{align*}
+        &\{a\le x\}\\
+        &y\leftarrow x\\
+        &z\leftarrow y\\
+        &\{a\le z\}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+    \item HT-E:\\
+      Ist ein Hoare-Tripel $\{P\}S\{Q\}$ gültig und sind die
+      Aussagen $P' \Rightarrow P$ und $Q\Rightarrow Q'$ wahr, dann ist auch das
+      Hoare-Tripel $\{P'\}S\{Q'\}$ gültig.
+    \item Beispiel: \\
+      \begin{align*}
+        &\{a\le x\}\\
+        &y\leftarrow x\\
+        &\{a\le y\}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+    \item HT-E:\\
+      Ist ein Hoare-Tripel $\{P\}S\{Q\}$ gültig und sind die
+      Aussagen $P' \Rightarrow P$ und $Q\Rightarrow Q'$ wahr, dann ist auch das
+      Hoare-Tripel $\{P'\}S\{Q'\}$ gültig.
+    \item Beispiel: \\
+      \begin{align*}
+        &\{a =x\}\\
+        &\{a\le x\}\\
+        &y\leftarrow x\\
+        &\{a\le y\}\\
+        &\{a\le y+1\}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  \begin{itemize}
+    \item HT-E:\\
+      Ist ein Hoare-Tripel $\{P\}S\{Q\}$ gültig und sind die
+      Aussagen $P' \Rightarrow P$ und $Q\Rightarrow Q'$ wahr, dann ist auch das
+      Hoare-Tripel $\{P'\}S\{Q'\}$ gültig.
+    \item Beispiel: \\
+      \begin{align*}
+        &\{a =x\}\\
+        &y\leftarrow x\\
+        &\{a\le y+1\}
+      \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  HT-I:\\
+  Wenn die Hoare-Tripel $\{P \land B\}S_1\{Q\}$ und $\{P \land \lnot B\}S_2\{Q\}$ gültig sind, so ist auch das Hoare-Tripel $\{P\} \textbf{if } B \textbf{ then }S_1\textbf{ else }S_2\textbf{ fi }\{Q\}$ gültig.
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{P\}\\
+    &\textbf{if } B\\
+    &\textbf{then}\\
+    & \qquad \{P\land B\}\\
+    & \qquad S_1\\
+    & \qquad \{Q\}\\
+    &\textbf{else}\\
+    & \qquad \{P\land \lnot B\}\\
+    & \qquad S_2\\
+    & \qquad \{Q\}\\
+    &\textbf{fi}\\
+    &\{Q\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{|x|=15\}\\
+    &\textbf{if } x\geq 0\\
+    &\textbf{then}\\
+    & \qquad \{|x|=15 \land x\geq 0\}\\
+    & \qquad x \leftarrow x\\
+    & \qquad \{x=15\}\\
+    &\textbf{else}\\
+    & \qquad \{|x|=15 \land \lnot (x\geq 0)\}\\
+    & \qquad x \leftarrow -x\\
+    & \qquad \{x=15\}\\
+    &\textbf{fi}\\
+    &\{x=15\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Beispiel: Minimum}
+  \begin{align*}
+    &\{x=a \land y=b\}\\
+    &\textbf{if } x > y\\
+    &\textbf{then}\\
+    & \qquad \{...\}\\
+    & \qquad z \leftarrow y\\
+    & \qquad \{...\}\\
+    &\textbf{else}\\
+    & \qquad \{...\}\\
+    & \qquad z \leftarrow x\\
+    & \qquad \{...\}\\
+    &\textbf{fi}\\
+    &\{z=\text{min}(a,b)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{minipage}{\textwidth}
+    \begin{align*}
+      &\{x=a \land y=b\}\\
+      &\textbf{if } x > y\\
+      &\textbf{then}\\
+      & \qquad \{x=a \land y=b \land x>y\}\\
+      & \qquad \{...\}\\
+      & \qquad z \leftarrow y\\
+      & \qquad \{...\}\\
+      &\textbf{else}\\
+      & \qquad \{...\}\\
+      & \qquad z \leftarrow x\\
+      & \qquad \{...\}\\
+      &\textbf{fi}\\
+      &\{z=\text{min}(a,b)\}
+    \end{align*}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
+  \begin{minipage}{\textwidth}
+    \begin{align*}
+      &\{x=a \land y=b\}\\
+      &\textbf{if } x > y\\
+      &\textbf{then}\\
+      & \qquad \{x=a \land y=b \land x>y\}\\
+      & \qquad \{...\}\\
+      & \qquad z \leftarrow y\\
+      & \qquad \{...\}\\
+      &\textbf{else}\\
+      & \qquad \{x=a \land y=b \land \lnot(x>y)\}\\
+      & \qquad \{...\}\\
+      & \qquad z \leftarrow x\\
+      & \qquad \{...\}\\
+      &\textbf{fi}\\
+      &\{z=\text{min}(a,b)\}
+    \end{align*}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
+  \begin{minipage}{\textwidth}
+    \begin{align*}
+      &\{x=a \land y=b\}\\
+      &\textbf{if } x > y\\
+      &\textbf{then}\\
+      & \qquad \{x=a \land y=b \land x>y\}\\
+      & \qquad \{...\}\\
+      & \qquad z \leftarrow y\\
+      & \qquad \{z=\text{min}(a,b)\}\\
+      &\textbf{else}\\
+      & \qquad \{x=a \land y=b \land \lnot(x>y)\}\\
+      & \qquad \{...\}\\
+      & \qquad z \leftarrow x\\
+      & \qquad \{z=\text{min}(a,b)\}\\
+      &\textbf{fi}\\
+      &\{z=\text{min}(a,b)\}
+    \end{align*}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}
+  \begin{minipage}{\textwidth}
+    \begin{align*}
+      &\{x=a \land y=b\}\\
+      &\textbf{if } x > y\\
+      &\textbf{then}\\
+      & \qquad \{x=a \land y=b \land x>y\}\\
+      & \qquad \{y=\text{min}(a,b)\}\\
+      & \qquad z \leftarrow y\\
+      & \qquad \{z=\text{min}(a,b)\}\\
+      &\textbf{else}\\
+      & \qquad \{x=a \land y=b \land \lnot(x>y)\}\\
+      & \qquad \{x=\text{min}(a,b)\}\\
+      & \qquad z \leftarrow x\\
+      & \qquad \{z=\text{min}(a,b)\}\\
+      &\textbf{fi}\\
+      &\{z=\text{min}(a,b)\}
+    \end{align*}
+  \end{minipage}
+\end{frame}
+
+\begin{frame}{Hoare-Tripel}
+  HT-W:\\
+  Wenn das Hoare-Tripel $\{I \land B\}S\{I\}$ gültig ist, so ist auch das Tripel $\{I\} \textbf{ while } B \textbf{ do }S\textbf{ od }\{I \land \lnot B\}$ gültig.
+\end{frame}
+
+\begin{frame}{Beispiel: While-Schleife}
+  \begin{align*}
+    &\{ I \} \\
+    &\textbf{while } B  \\
+    &\textbf{do } \\
+    &\qquad\{ I\land B \} \\
+    &\qquad S \\
+    &\qquad\{ I \} \\
+    &\textbf{od } \\
+    &\{I\land \lnot B\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Beispiel: While-Schleife}
+  \begin{align*}
+    &\{ x\geq 0 \} \\
+    &\textbf{while } x\leq 10  \\
+    &\textbf{do } \\
+    &\qquad\{ x\geq 0 \land x\leq 10 \} \\
+    &\qquad x\leftarrow x+1 \\
+    &\qquad\{ x\geq 0 \} \\
+    &\textbf{od } \\
+    &\{x\geq 0 \land \lnot (x\leq 10)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Beispiel: While-Schleife}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ ... \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ ... \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ ... \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ ... \} \\
+    &\textbf{od } \\
+    &\{ ... \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ x+y=a+b \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ ... \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ ... \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ ... \} \\
+    &\textbf{od } \\
+    &\{ ... \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ x+y=a+b \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ x+y=a+b \land y\not=0 \} \\
+    &\qquad\{ ... \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ ... \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ ... \} \\
+    &\textbf{od } \\
+    &\{ ... \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ x+y=a+b \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ x+y=a+b \land y\not=0 \} \\
+    &\qquad\{ ... \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ ... \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ x+y=a+b \} \\
+    &\textbf{od } \\
+    &\{ ... \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ x+y=a+b \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ x+y=a+b \land y\not=0 \} \\
+    &\qquad\{ ... \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ x+1+y=a+b \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ x+y=a+b \} \\
+    &\textbf{od } \\
+    &\{ ... \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ x+y=a+b \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ x+y=a+b \land y\not=0 \} \\
+    &\qquad\{ x+1+y-1=a+b \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ x+1+y=a+b \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ x+y=a+b \} \\
+    &\textbf{od } \\
+    &\{ ... \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a \land y=b\}  \\
+    &\{ x+y=a+b \} \\
+    &\textbf{while } y\not=0  \\
+    &\textbf{do } \\
+    &\qquad\{ x+y=a+b \land y\not=0 \} \\
+    &\qquad\{ x+1+y-1=a+b \} \\
+    &\qquad y \gets y-1 \\
+    &\qquad\{ x+1+y=a+b \} \\
+    &\qquad x \gets x+1 \\
+    &\qquad\{ x+y=a+b \} \\
+    &\textbf{od } \\
+    &\{ x+y=a+b \land \lnot(y\not=0) \} \\
+    &\{x=a+b\} \\
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Aufgabenblatt: WS 2015/16 A8.2}
+  Beweisen Sie anhand des Hoare-Kalküls, dass das Hoare-Tripel
+  \begin{align*}
+    &\{x=a\land y=b\}\\
+    &\textbf{if } x\ge y\\
+    &\textbf{then}\\
+    & \qquad z\leftarrow x\\
+    & \qquad x\leftarrow y\\
+    & \qquad y\leftarrow z\\
+    &\textbf{else}\\
+    & \qquad x\leftarrow x\\
+    &\textbf{fi}\\
+    &\{x=min(a,b)\land y=max(a,b)\}
+  \end{align*}
+  gültig ist.
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a\land y=b\}\\
+    &\textbf{if } x\ge y\\
+    &\textbf{then}\\
+    & \qquad z\leftarrow x\\
+    & \qquad x\leftarrow y\\
+    & \qquad y\leftarrow z\\
+    &\{x=min(a,b)\land y=max(a,b)\}\\
+    &\textbf{else}\\
+    & \qquad x\leftarrow x\\
+    &\{x=min(a,b)\land y=max(a,b)\}\\
+    &\textbf{fi}\\
+    &\{x=min(a,b)\land y=max(a,b)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a\land y=b\}\\
+    &\textbf{if } x\ge y\\
+    &\textbf{then}\\
+    &\{y=min(a,b)\land x=max(a,b)\}\\
+    & \qquad z\leftarrow x\\
+    & \qquad x\leftarrow y\\
+    & \qquad y\leftarrow z\\
+    &\{x=min(a,b)\land y=max(a,b)\}\\
+    &\textbf{else}\\
+    &\{x=min(a,b)\land y=max(a,b)\}\\
+    & \qquad x\leftarrow x\\
+    &\{x=min(a,b)\land y=max(a,b)\}\\
+    &\textbf{fi}\\
+    &\{x=min(a,b)\land y=max(a,b)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{x=a\land y=b\land x\geq y\}\\
+    &\{y=min(a,b)\land x=max(a,b)\}\\
+  \end{align*}
+  \begin{align*}
+    &\{x=a\land y=b\land x< y\}\\
+    &\{x=min(a,b)\land y=max(a,b)\}\\
+  \end{align*}
+\end{frame}

@@ -1,0 +1,392 @@
+\section{Relationen}
+
+\begin{frame}{Paare, Tupel}
+  Unterschied zwischen Paaren und Mengen:
+  \begin{itemize}
+    \item $(1,2)\neq(2,1)$
+    \item $\{1,2\}=\{2,1\}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kartesisches Produkt}
+  Menge aller Paare (a,b) mit a $\in$ A und b $\in$ B\\
+  $A \times B = \{(a,b) | a \in A\text{ und }b \in B \}$
+  \begin{align*}
+    \{a,b\}\times\{1,2,3\}=\{(a,1),(a,2),(a,3),(b,1),(b,2),(b,3)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Relationen}
+  Relation R ist eine Teilmenge von $A\times B$ \\
+  $R\subseteq A\times B$
+  \begin{itemize}
+    \item $A\times B=\{(a,1),(a,2),(a,3),(b,1),(b,2),(b,3)\}$
+    \item $R_1=\{(a,1),(b,1),(b,2)\}$
+    \item $R_2=\{(a,1),(a,3),(b,2),(b,3)\}$
+    \item $(b,3)\in R_2$ oder $bR_23$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Eigenschaften von Relationen}
+  Linkstotal
+  \begin{itemize}
+    \item $\forall a \in A \exists b \in B : (a,b)\in R$
+    \item Jedes Element aus A steht in Relation zu mindestens einem Element aus B
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(3)| 0  \\
+        |(1)| 1  \&  |(4)| 1  \\
+        |(2)| 2  \&  |(5)| 2  \\
+      };
+      \draw (0) -- (4);
+      \draw (1) -- (3);
+      \draw (1) -- (4);
+      \draw (2) -- (3);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Eigenschaften von Relationen}
+  Rechtstotal (surjektiv)
+  \begin{itemize}
+    \item $\forall b \in B \exists a \in A : (a,b)\in R$
+    \item Jedes Element aus B steht in Relation zu mindestens einem Element aus A
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(3)| 0  \\
+        |(1)| 1  \&  |(4)| 1  \\
+        |(2)| 2  \&  |(5)| 2  \\
+      };
+      \draw (0) -- (4);
+      \draw (1) -- (3);
+      \draw (1) -- (5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Eigenschaften von Relationen}
+  Linkseindeutig (injektiv)
+  \begin{itemize}
+    \item $\forall (a_1,b_1),(a_2,b_2) \in R: a_1\neq a_2 \Rightarrow b_1 \neq b_2$
+    \item Jedes Element aus B steht höchstens mit einem Element aus A in Relation
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(3)| 0  \\
+        |(1)| 1  \&  |(4)| 1  \\
+        |(2)| 2  \&  |(5)| 2  \\
+      };
+      \draw (0) -- (3);
+      \draw (1) -- (4);
+      \draw (1) -- (5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Eigenschaften von Relationen}
+  Rechtseindeutig
+  \begin{itemize}
+    \item $\forall (a_1,b_1),(a_2,b_2) \in R: b_1\neq b_2 \Rightarrow a_1 \neq a_2$
+    \item Jedes Element aus A steht höchstens mit einem Element aus B in Relation
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(3)| 0  \\
+        |(1)| 1  \&  |(4)| 1  \\
+        |(2)| 2  \&  |(5)| 2  \\
+      };
+      \draw (0) -- (3);
+      \draw (1) -- (3);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Funktionen}
+  \begin{itemize}
+    \item linkstotale und rechtseindeutige Relationen nennt man Funktionen
+    \item andere Schreibweise: $f: A \rightarrow B$
+    \item Definitionsbereich A, Zielbereich B, Bildbereich f(A)
+    \item linkseindeutige Funktionen nennt man injektiv
+    \item rechtstotale Funktionen nennt man surjektiv
+    \item injektive und surjektive Funktionen nennt man bijektiv
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Produkt von Relationen}
+  \begin{itemize}
+    \item $R\subseteq M_1 \times M_2$ und $S\subseteq M_2 \times M_3$
+    \item $S\circ R=\{(x,z)|\exists y \in M_2: (x,y) \in R \land (y,z) \in S\}$
+    \item Beispiel:\begin{align*}&\{(1,2),(2,2),(1,1)\}\circ \{(1,1),(2,1),(3,3)\}\\ &=\{(1,2),(1,1),(2,2),(2,1)\}\end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Produkt von Relationen}
+  \begin{align*}
+    &\{(1,2),(2,2),(1,1)\}\circ \{(1,1),(2,1),(3,3)\}\\
+    &=\{(1,2),(1,1),(2,2),(2,1)\}
+  \end{align*}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(1)| 1  \&  |(4)| 1  \&  |(7)| 1  \\
+        |(2)| 2  \&  |(5)| 2  \&  |(8)| 2  \\
+        |(3)| 3  \&  |(6)| 3  \&  |(9)| 3  \\
+      };
+      \draw (1) -- (4);
+      \draw (2) -- (4);
+      \draw (3) -- (6);
+      \draw (4) -- (7);
+      \draw (4) -- (8);
+      \draw (5) -- (8);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Produkt von Relationen}
+  \begin{align*}
+    &\{(1,2),(2,2),(1,1)\}\circ \{(1,1),(2,1),(3,3)\}\\
+    &=\{(1,2),(1,1),(2,2),(2,1)\}
+  \end{align*}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(1)| 1  \&  \&  |(7)| 1  \\
+        |(2)| 2  \&  \&  |(8)| 2  \\
+        |(3)| 3  \&  \&  |(9)| 3  \\
+      };
+      \draw (1) -- (7);
+      \draw (1) -- (8);
+      \draw (2) -- (7);
+      \draw (2) -- (8);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  $\mathbb{G}_n=\{0,1,...,n-1\}$
+  \begin{itemize}
+    \item Geben Sie (graphisch) eine Relation $R_a\subseteq \mathbb{G}_4\times \mathbb{G}_2$ an, so dass $R_a$ rechtstotal und rechtseindeutig, aber nicht linkstotal und nicht linkseindeutig ist.
+    \item Wie viele solcher Relationen $R_a$ gibt es?
+    \item Geben Sie (in Mengenschreibweise) eine Relation $R_b\subseteq\mathbb{G}_2\times\mathbb{G}_4$ an, so dass $R_b\circ R_a$ rechtstotal und linkseindeutig ist.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  rechtstotal und rechtseindeutig, aber nicht linkstotal und nicht linkseindeutig
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(4)| 0  \\
+        |(1)| 1  \&  |(5)| 1  \\
+        |(2)| 2  \&  \\
+        |(3)| 3  \&  \\
+      };
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  rechtstotal und rechtseindeutig, aber nicht linkstotal und nicht linkseindeutig
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \& |(4)| 0  \\
+        |(1)| 1  \& |(5)| 1  \\
+        |(2)| 2  \&  \\
+        |(3)| 3  \&  \\
+      };
+      \draw (0) -- (4);
+      \draw (1) -- (5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  rechtstotal und rechtseindeutig, aber nicht linkstotal und nicht linkseindeutig
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(4)| 0  \\
+        |(1)| 1  \&  |(5)| 1  \\
+        |(2)| 2  \&  \\
+        |(3)| 3  \&  \\
+      };
+      \draw (0) -- (4);
+      \draw (1) -- (5);
+      \draw (2) -- (5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  Geben Sie (in Mengenschreibweise) eine Relation $R_b\subseteq\mathbb{G}_2\times\mathbb{G}_4$ an, so dass $R_b\circ R_a$ rechtstotal und linkseindeutig ist.
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \& |(4)| 0  \&  |(6)| 0  \\
+        |(1)| 1  \& |(5)| 1  \&  |(7)| 1  \\
+        |(2)| 2  \&  \&  |(8)| 2  \\
+        |(3)| 3  \&  \&  |(9)| 3  \\
+      };
+      \draw (0) -- (4);
+      \draw (1) -- (5);
+      \draw (2) -- (5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  |(4)| 0  \&  |(6)| 0  \\
+        |(1)| 1  \&  |(5)| 1  \&  |(7)| 1  \\
+        |(2)| 2  \&  \&  |(8)| 2  \\
+        |(3)| 3  \&  \&  |(9)| 3  \\
+      };
+      \draw (0) -- (4);
+      \draw (4) -- (6);
+      \draw (4) -- (7);
+      \draw (4) -- (8);
+      \draw (4) -- (9);
+      \draw (1) -- (5);
+      \draw (2) -- (5);
+    \end{tikzpicture}
+  \end{center}
+  $R_b=\{(0,0),(0,1),(0,2),(0,3)\}$
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2012 A2}
+  Geben Sie (in Mengenschreibweise) eine Relation $R_b\subseteq\mathbb{G}_2\times\mathbb{G}_4$ an, so dass $R_b\circ R_a$ rechtstotal und linkseindeutig ist.
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=5mm,column sep=25mm] 
+      {
+        |(0)| 0  \&  \&  |(6)| 0  \\
+        |(1)| 1  \&  \&  |(7)| 1  \\
+        |(2)| 2  \&  \&  |(8)| 2  \\
+        |(3)| 3  \&  \&  |(9)| 3  \\
+      };
+      \draw (0) -- (6);
+      \draw (0) -- (7);
+      \draw (0) -- (8);
+      \draw (0) -- (9);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Reflexivität}
+  \begin{itemize}
+    \item $R\subseteq M\times M$
+    \item R ist reflexiv, wenn: $\Rightarrow \forall x\in M: (x,x)\in R$
+    \item Jedes Element steht in Relation zu sich selbst.
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(0)| 0  \&  |(2)| 2  \\
+        |(1)| 1  \&  |(3)| 3  \\
+      };
+      \path (0) edge [loop left] ();
+      \path (1) edge [loop left] ();
+      \path (2) edge [loop left] ();
+      \path (3) edge [loop left] ();
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Transitivität}
+  \begin{itemize}
+     \item $R\subseteq M\times M$
+     \item R ist transitiv, wenn: $\forall x,y,z \in M:(x,y)\in R \land (y,z)\in R \Rightarrow (x,z)\in R$
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(0)| 0  \&  |(2)| 2  \\
+        |(1)| 1  \&  |(3)| 3  \\
+      };
+      \draw (0) -- (1);
+      \draw (1) -- (2);
+      \draw (0) -- (2);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Symmetrie}
+  \begin{itemize}
+    \item $R\subseteq M\times M$
+    \item R ist symmetrisch, wenn: $\forall x,y \in M:(x,y)\in R  \Rightarrow (y,x)\in R$
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(0)| 0  \&  |(2)| 2  \\
+        |(1)| 1  \&  |(3)| 3  \\
+      };
+      \draw (0) -- (1);
+      \draw (1) -- (0);
+      \draw (0) -- (2);
+      \draw(2) -- (0);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Äquivalenzrelation}
+  \begin{itemize}
+    \item $R\subseteq M\times M$
+    \item R ist reflexiv, symmetrisch und transitiv
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[->,>=stealth]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(0)| 0  \&  |(3)| 3  \& |(1)| 1  \\
+        |(6)| 6  \&  |(4)| 4  \& |(7)| 7  \\
+        |(2)| 2  \&  |(5)| 5  \&  \\
+      };
+      \draw (0) -- (3);
+      \draw (3) -- (0);
+      \draw (0) -- (6);
+      \draw(6) -- (0);
+      \draw (3) -- (6);
+      \draw (6) -- (3);
+      \draw (1) -- (4);
+      \draw(4) -- (1);
+      \draw (2) -- (5);
+      \draw (5) -- (2);
+      \draw (1) -- (7);
+      \draw(7) -- (1);
+      \draw (4) -- (7);
+      \draw(7) -- (4);
+      \path (0) edge [loop left] ();
+      \path (1) edge [loop left] ();
+      \path (2) edge [loop left] ();
+      \path (3) edge [loop below] ();
+      \path (4) edge [loop left] ();
+      \path (5) edge [loop above] ();
+      \path (6) edge [loop left] ();
+      \path (7) edge [loop below] ();
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
