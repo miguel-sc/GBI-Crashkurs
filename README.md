@@ -6,9 +6,11 @@ Der GBI-Crashkurs war eine dreitägige Veranstaltung zur Klausurvorbereitung der
 
 ## Quellen
 
-Verwendet wurde das *LaTeX-Beamer template for KIT design* von Erik Burger, Christian Hammer, David Dauer.
+Verwendet wurde das [LaTeX-Beamer template for KIT design](https://sdqweb.ipd.kit.edu/wiki/Dokumentvorlagen) von Erik Burger, Christian Hammer, David Dauer.
 
-Alle Informationen in den Folien wurden dem Skript *Grundbegriffe der Informatik* von Thomas Worsch und Simon Wacker entnommen.
+Alle Informationen in den Folien wurden dem Skript [Grundbegriffe der Informatik](http://gbi.ira.uka.de/vorlesungen/skript.pdf) von Thomas Worsch und Simon Wacker entnommen.
+
+Die Prüfungsaufgaben der vergangenen Jahre sind [hier](http://gbi.ira.uka.de/archiv/index.html) zu finden.
 
 ## Danksagung
 
