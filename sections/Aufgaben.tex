@@ -1,0 +1,460 @@
+\section{Aufgaben}
+
+\begin{frame}{Aufgabenblatt: WS 2014/15 A6.4}
+  \begin{align*}
+    &\{z = a(0) \land x = 1\} \\
+    &\textbf{while } x \leq n - 1  \\
+    &\textbf{do } \\
+    &\qquad \textbf{if } a(x) \leq z \textbf{ then}\\
+    &\qquad\qquad z\leftarrow a(x) \\
+    &\qquad\textbf{else}\\
+    &\qquad\qquad z\leftarrow z \\
+    &\qquad\textbf{fi}\\
+    &\qquad x\leftarrow x+1 \\
+    &\textbf{od } \\
+    &\{z = \min_{i \in \mathbb{Z}_n} a(i)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Beispiel: While-Schleife}
+  \begin{align*}
+    &\{ I \} \\
+    &\textbf{while } B  \\
+    &\textbf{do } \\
+    &\qquad\{ I\land B \} \\
+    &\qquad S \\
+    &\qquad\{ I \} \\
+    &\textbf{od } \\
+    &\{I\land \lnot B\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{z = a(0) \land x = 1\} \\
+    &\textbf{while } x \leq n - 1  \\
+    &\textbf{do } \\
+    &\qquad \textbf{if } a(x) \leq z \textbf{ then}\\
+    &\qquad\qquad z\leftarrow a(x) \\
+    &\qquad\textbf{else}\\
+    &\qquad\qquad z\leftarrow z \\
+    &\qquad\textbf{fi}\\
+    &\qquad x\leftarrow x+1 \\
+    &\qquad \{z = \min_{i \in \mathbb{Z}_{x}} a(i)\} \\
+    &\textbf{od } \\
+    &\{z = \min_{i \in \mathbb{Z}_n} a(i)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{z = a(0) \land x = 1\} \\
+    &\textbf{while } x \leq n - 1  \\
+    &\textbf{do } \\
+    &\qquad \textbf{if } a(x) \leq z \textbf{ then}\\
+    &\qquad\qquad z\leftarrow a(x) \\
+    &\qquad\textbf{else}\\
+    &\qquad\qquad z\leftarrow z \\
+    &\qquad\textbf{fi}\\
+    &\qquad x\leftarrow x+1 \\
+    &\qquad \{z = \min_{i \in \mathbb{Z}_{x}} a(i)\} \\
+    &\textbf{od } \\
+    &\{z = \min_{i \in \mathbb{Z}_x} a(i) \land \lnot (x \leq n - 1)\} \\
+    &\{z = \min_{i \in \mathbb{Z}_n} a(i)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \begin{align*}
+    &\{z = a(0) \land x = 1\} \\
+    &\textbf{while } x \leq n - 1  \\
+    &\textbf{do } \\
+    &\qquad \textbf{if } a(x) \leq z \textbf{ then}\\
+    &\qquad\qquad z\leftarrow a(x) \\
+    &\qquad\textbf{else}\\
+    &\qquad\qquad z\leftarrow z \\
+    &\qquad\textbf{fi}\\
+    &\qquad x\leftarrow x+1 \\
+    &\qquad \{z = \min_{i \in \mathbb{Z}_{x}} a(i) \land x \leq n\} \\
+    &\textbf{od } \\
+    &\{z = \min_{i \in \mathbb{Z}_x} a(i) \land x \leq n \land \lnot (x \leq n - 1)\} \\
+    &\{z = \min_{i \in \mathbb{Z}_n} a(i)\}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Master-Theorem}
+$T(n)=a\cdot T(\frac{n}{b})+f(n)$ mit
+$a\geq 1$ und $b >1$\\
+\begin{itemize}
+\item Fall 1: Wenn $f \in O(n^{\log_b a -\epsilon})$ für ein
+  $\epsilon>0$ ist, dann ist $T\in \Theta (n^{\log_b a})$.
+\item Fall 2: Wenn $f \in \Theta (n^{\log_b a})$ ist, dann ist
+  $T\in \Theta (n^{\log_b a}\log n)$.
+\item Fall 3: Wenn $f \in \Omega(n^{\log_b a +\epsilon})$ für ein
+  $\epsilon>0$ ist, und wenn es eine Konstante $d$ gibt mit $0<d<1$, so
+  dass für alle hinreichend großen $n$ gilt $af(n/b)\leq d f$, dann
+  ist $T\in \Theta (f)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Master-Theorem}
+Beispiel:
+\begin{itemize}
+\item $T(n)=4T(\frac{n}{2})+n\log n$
+\item $n^{\log_b a} = n^{\log_2 4}=n^2$ und $f(n)=n\log n$
+\item $n\log n \in O(n^{2-\epsilon})$
+\item $\Rightarrow T(n) \in \Theta (n^2)$
+\end{itemize}
+Allgemein:
+\begin{itemize}
+\item f(n) und $n^{\log_b a}$ vergleichen
+\item den passenden Fall benutzen
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Master-Theorem}
+Schätzen Sie T(n) mit Hilfe des Master-Theorems ab, falls das Master-Theorem anwendbar ist. 
+\begin{itemize}
+\item $T(n)=9T(\frac{n}{3})+n^2+2n+1$
+\item $T(n)=\sqrt{3}T(\frac{n}{2})+\log n$
+\item $T(n)=2^nT(\frac{n}{2})+n$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Master-Theorem}
+Schätzen Sie T(n) mit Hilfe des Master-Theorems ab, falls das Master-Theorem anwendbar ist. 
+\begin{itemize}
+\item $T(n)=9T(\frac{n}{3})+n^2+2n+1$\\
+Lösung: $n^{\log_3 9} = n^2 $, $T(n) \in \Theta (n^2\log n)$
+\pause
+\item $T(n)=\sqrt{3}T(\frac{n}{2})+\log n$\\
+Lösung: $n^{\log_2 \sqrt{3}} = n^{0,79} $, $T(n) \in \Theta (n^{\log_2 \sqrt{3}})$
+\pause
+\item $T(n)=2^nT(\frac{n}{2})+n$\\
+Lösung: Nicht anwendbar, $a=2^n$ nicht konstant
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Induktion über Wortlänge}
+Es sei $f:A^* \rightarrow \mathbb{N}$ mit $A=\{a,b\}$
+\begin{itemize}
+\item $f(\epsilon)=0$
+\item $\forall x\in A \text{ und } \forall w \in A^* : f(xw)=u(x)+f(w)$
+\item $u(a)=1$ $u(b)=0$
+\end{itemize}
+Beweisen Sie durch vollständige Induktion, dass $f(w)=N_a(w)$ gilt. \\
+$A_n$: die Aussage $f(w)=N_a(w)$ mit $|w|=n$
+\end{frame}
+
+\begin{frame}{Induktion über Wortlänge}
+Induktion über die Wortlänge $n=|w|$\\
+Induktionsanfang $n=0$:\\
+$\rightarrow w=\epsilon$\\
+$f(\epsilon)=0$\\
+$N_a(\epsilon)=0$
+\end{frame}
+
+\begin{frame}{Induktion über Wortlänge}
+Induktionsvorraussetzung:\\
+Für ein beliebiges aber festes n gilt $f(w)=N_a(w)$ für alle $w \in A^*$ mit $|w|=n$ \\
+Neu: $A_n$ ist wahr, also $f(w)=N_a(w)$ für alle $w \in A^*$ mit $|w|=n$
+\end{frame}
+
+\begin{frame}{Induktion über Wortlänge}
+Induktionsschritt:\\
+Es sei $w=xw'$ mit $|w|=n+1$ \\
+$f(w)=f(xw')=u(x)+f(w')$\\
+$f(w)=u(x)+N_a(w')$ (I.V.)\\
+$f(w)=N_a(x)+N_a(w')$\\
+$f(w)=N_a(xw')=N_a(w)$
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2016/17 A4}
+  Für jeden ungerichteten Graphen $G=(V,E)$ ist der sogenannte Kantengraph $L(G)=(V',E')$ wie folgt definiert:
+  \begin{align*}
+    V' &= E\\
+    E' &= \{\{e_1,e_2\}|e_1,e_2 \in E \land e_1 \cap e_2 \notin \emptyset \}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2016/17 A4}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every loop/.style={}]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(2)| 2  \&             \&  |(3)| 3  \\
+                   \&  |(4)| 4  \&             \\
+        |(0)| 0  \&             \&  |(1)| 1  \\
+      };
+      \draw (2) -- (4);
+      \draw (3) -- (4);
+      \draw (1) -- (4);
+      \draw (0) -- (4);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2016/17 A4}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every loop/.style={}]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(2)| 4,2  \&             \&  |(3)| 4,3  \\
+                      \&             \&                 \\
+        |(0)| 4,0  \&             \&  |(1)| 4,1  \\
+      };
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2016/17 A4}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every loop/.style={}]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(2)| 4,2  \&             \&  |(3)| 4,3  \\
+                      \&             \&                 \\
+        |(0)| 4,0  \&             \&  |(1)| 4,1  \\
+      };
+      \draw (2) -- (3);
+      \draw (3) -- (1);
+      \draw (1) -- (0);
+      \draw (0) -- (2);
+      \draw (1) -- (2);
+      \draw (0) -- (3);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: WS 2016/17 A4}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every loop/.style={}]
+      \matrix [matrix of math nodes,ampersand replacement=\&,nodes={circle,draw,minimum size=10mm,inner sep=2pt},row sep=15mm,column sep=15mm] 
+      {
+        |(2)| 4,2  \&             \&  |(3)| 4,3  \\
+                      \&             \&                 \\
+        |(0)| 4,0  \&             \&  |(1)| 4,1  \\
+      };
+      \draw (2) -- (3);
+      \draw (3) -- (1);
+      \draw (1) -- (0);
+      \draw (0) -- (2);
+      \draw (1) -- (2);
+      \draw (0) -- (3);
+      \path (0) edge [loop left] ();
+      \path (1) edge [loop right] ();
+      \path (2) edge [loop left] ();
+      \path (3) edge [loop right] ();
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Klausuraufgabe: SS 2009 A1}
+  \begin{align*}
+    L_1 &= \{a^k b^m | k,m \in \mathbb{N}_0 \land k \text{ mod } 2 = 0 \land m \text{ mod } 3 = 1 \} \\
+    L_2 &= \{b^k a^m | k,m \in \mathbb{N}_0 \land k \text{ mod } 2 = 1 \land m \text{ mod } 3 = 0 \}
+  \end{align*}
+  Geben Sie für jede der folgenden formalen Sprachen $L$ je einen regulären Ausdruck $R_L$ an mit $\langle R_L \rangle = L$.
+  \begin{itemize}
+    \item $L=L_1$\\
+    \pause
+    $R_L=(aa)*b(bbb)*$
+    \pause
+    \item $L=L_1 \cdot L_2$\\
+    \pause
+    $R_L=(aa)*b(bbb)*b(bb)*(aaa)*$
+    \pause
+    \item $L=L_1\cap L_2$\\
+    \pause
+    $R_L=b(bbbbbb)*$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Turingmaschine entwerfen}
+Wir wollen eine Turingmaschine, die pr\"uft, ob das Eingabewort $w \in \{a,b\}^{*}$ genauso viele \textbf{a}s wie \textbf{b}s
+\newline \newline Idee: Wir gehen das Wort durch und l\"oschen pro \textbf{a} ein \textbf{b}. Bleiben dann keine Zeichen mehr \"ubrig, wird das Wort akzeptiert. Ansonsten wird es abgelehnt.
+\end{frame}
+
+\begin{frame}{Turingmaschine entwerfen}
+\begin{itemize}
+\item Wir laufen so lange nach rechts, bis wir ein \textbf{a} gefunden haben und l\"oschen es. ($\bot$ soll ein gel\"oschtes Zeichen darstellen)
+\end{itemize}
+\pause
+\begin{minipage}{0.7\textwidth}
+\begin{tikzpicture}[shorten >=1pt,node distance=2.75cm,auto,initial text=,>=stealth]
+
+	\node[state,initial]  (0)          				{0};
+	\node[state]          (1) [right of = 0] 			{1};
+  
+	\path[->]
+		(0) edge [loop above]	node [above] {$b|bR; \bot | \bot R$}	()
+			edge				node [above] {$a|\bot R$}				(1);
+		
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+\tiny{
+\begin{tabular}{cccccc}
+ & $0$ & & & & \\
+ \textvisiblespace & a & b & b & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & & 1 & & & \\
+ \textvisiblespace & $\bot$ & b & b & a & \textvisiblespace \\
+\end{tabular}
+}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Turingmaschine entwerfen}
+\begin{itemize}
+\item Jetzt laufen wir bis zum Ende des Wortes und suchen von rechts ein \textbf{b}, welches wir l\"oschen.
+\end{itemize}
+\pause
+\begin{minipage}{0.7\textwidth}
+\begin{tikzpicture}[shorten >=1pt,node distance=2.75cm,auto,initial text=,>=stealth]
+
+	\node[state,initial]  (0)          			{0};
+	\node[state]          (1) [right of = 0] 	{1};
+	\node[state]		  (2) [right of = 1]	{2};	
+	\node[state]		  (3) [below of = 2]	{3};	
+  
+	\path[->]
+		(0) edge [loop above]	node [above] {$b|bR; \bot | \bot R$}	()
+			edge				node [above] {$a|\bot R$}					(1)
+		(1)	edge [loop above]	node [above] {$a|aR; b|bR; \bot | \bot R$} ()
+			edge 				node [above] {$\square | \square L$} 		(2)
+		(2) edge [loop above]	node [above] {$a|aL; \bot | \bot L$} 	()
+			edge node [right] {$b|\bot L$} (3);
+		
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+\tiny{
+\begin{tabular}{cccccc}
+ & & 1 & & & \\
+ \textvisiblespace & $\bot$ & b & b & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & & & & & 2 \\
+ \textvisiblespace & $\bot$ & b & b & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & & 3 & & & \\
+ \textvisiblespace & $\bot$ & b & $\bot$ & a & \textvisiblespace \\
+\end{tabular}
+}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Turingmaschine entwerfen}
+\begin{itemize}
+\item Ist das \textbf{b} gel\"oscht, laufen wir wieder ganz nach links und wiederholen alle Schritte.
+\end{itemize}
+\pause
+\begin{minipage}{0.7\textwidth}
+\begin{tikzpicture}[shorten >=1pt,node distance=2.75cm,auto,initial text=,>=stealth]
+
+	\node[state,initial]  (0)          			{0};
+	\node[state]          (1) [right of = 0] 	{1};
+	\node[state]		  (2) [right of = 1]	{2};	
+	\node[state]		  (3) [below of = 2]	{3};	
+  
+	\path[->]
+		(0) edge [loop above]	node [above] {$b|bR; \bot | \bot R$}	()
+			edge				node [above] {$a|\bot R$}					(1)
+		(1)	edge [loop above]	node [above] {$a|aR; b|bR; \bot | \bot R$} ()
+			edge 				node [above] {$\square | \square L$} 		(2)
+		(2) edge [loop above]	node [above] {$a|aL; \bot | \bot L$} 	()
+			edge node [right] {$b|\bot L$} (3)
+		(3) edge [loop below] node [below] {$a|aL; b|bL; \bot |\bot L$} ()
+			edge node [right] {$\square | \square R$} (0);
+		
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+\tiny{
+\begin{tabular}{cccccc}
+ & & 3 & & & \\
+ \textvisiblespace & $\bot$ & b & $\bot$ & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & 3 & & & & \\
+ \textvisiblespace & $\bot$ & b & $\bot$ & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ 3 & & & & & \\
+ \textvisiblespace & $\bot$ & b & $\bot$ & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & 0 & & & & \\
+ \textvisiblespace & $\bot$ & b & $\bot$ & a & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & 0 & & & & \\
+ \textvisiblespace & $\bot$ & $\bot$ & $\bot$ & $\bot$ & \textvisiblespace \\
+\end{tabular}
+}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Turingmaschine entwerfen}
+\begin{itemize}
+\item Findet man nun kein \textbf{a} mehr, wird gepr\"uft, ob noch ein \textbf{b} auf dem Band steht. Wenn nein, wird akzeptiert.
+\end{itemize}
+\pause
+\begin{minipage}{0.7\textwidth}
+\begin{tikzpicture}[shorten >=1pt,node distance=2.75cm,auto,initial text=,>=stealth]
+
+	\node[state,initial]  (0)          			{0};
+	\node[state]          (1) [right of = 0] 	{1};
+	\node[state]		  (2) [right of = 1]	{2};	
+	\node[state]		  (3) [below of = 2]	{3};	
+	\node[state]		  (4) [below of = 0]	{4};
+	\node[state, accepting]		  (5) [below of = 1]	{A};
+  
+	\path[->]
+		(0) edge [loop above]	node [above] {$b|bR; \bot | \bot R$}	()
+			edge				node [above] {$a|\bot R$}					(1)
+			edge node [left] {$\square | \square L$} (4)
+		(1)	edge [loop above]	node [above] {$a|aR; b|bR; \bot | \bot R$} ()
+			edge 				node [above] {$\square | \square L$} 		(2)
+		(2) edge [loop above]	node [above] {$a|aL; \bot | \bot L$} 	()
+			edge node [right] {$b|\bot L$} (3)
+		(3) edge [loop below] node [below] {$a|aL; b|bL; \bot |\bot L$} ()
+			edge node [right] {$\square | \square L$} (0)
+		(4) edge [loop below] node [below] {$\bot | \bot L$} ()
+			edge node [below] {$\square | \square R$} (5);
+		
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.25\textwidth}
+\tiny{
+\begin{tabular}{cccccc}
+ & 0 & & & & \\
+ \textvisiblespace & $\bot$ & $\bot$ & $\bot$ & $\bot$ & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & & & & & 0 \\
+ \textvisiblespace & $\bot$ & $\bot$ & $\bot$ & $\bot$ & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & & & & 4 & \\
+ \textvisiblespace & $\bot$ & $\bot$ & $\bot$ & $\bot$ & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ 4 & & & & & \\
+ \textvisiblespace & $\bot$ & $\bot$ & $\bot$ & $\bot$ & \textvisiblespace \\
+\end{tabular}
+\begin{tabular}{cccccc}
+ & A & & & & \\
+ \textvisiblespace & $\bot$ & $\bot$ & $\bot$ & $\bot$ & \textvisiblespace \\
+\end{tabular}
+}
+\end{minipage}
+\end{frame}
+

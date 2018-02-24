@@ -70,10 +70,10 @@
 
 % the presentation starts here
 
-\title[GBI Crashkurs]{GBI Crashkurs WS 2016/17}
-%\subtitle{Tag 1}
+\title[GBI Crashkurs]{Grundbegriffe der Informatik\\ Crashkurs WS 2017/18}
+\subtitle{fuks e.V. - Fachübergreifende Unternehmensberatung\\ Karlsruher Studenten}
 \author{Miguel Santos Correa}
-\date{23. Februar 2017}
+\date{22. Februar 2018}
 
 %\institute{Chair for Software Design and Quality}
 
@@ -88,19 +88,22 @@
 % change the following line to "ngerman" for German style date and logos
 \selectlanguage{ngerman}
 
+\setbeamercovered{invisible}
+
 %title page
 \begin{frame}
   \begin{center}
     \huge\inserttitle\\
     \vskip 1.75mm
     \normalsize
+    \insertsubtitle\\
+    \vskip 1.75mm
     \insertauthor\\
-    \insertdate\\
     \vskip 1.75mm
     \large
     miguelsantoscorrea@gmail.com\\
     \vskip 1.75mm
-    https://github.com/miguel-sc
+    https://github.com/miguel-sc/GBI-Crashkurs
   \end{center}
 \end{frame}
 
@@ -123,7 +126,7 @@
 %sections
 \input{sections/Graphen}
 \input{sections/Regex}
-\input{sections/O-Kalkuel}
 \input{sections/Turingmaschinen}
+\input{sections/Hoare-Kalkuel}
 
 \end{document}

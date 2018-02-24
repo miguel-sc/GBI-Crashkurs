@@ -1,0 +1,145 @@
+\section{Speicher}
+
+\begin{frame}{Menge aller Abbildungen}
+Die Menge aller Abbildungen von A nach B ist definiert als $B^A$.
+\begin{itemize}
+\item $B^A=\{f:A\rightarrow B\}$
+\item $|B^A|=|B|^{|A|}$
+\item Für jedes $a\in A$ gibt es $|B|$ Möglichkeiten einen Funktionswert aus $B$ zu finden.
+\item Es gibt $|A|$ Elemente in $A$, also ergibt sich für die Anzahl aller Kombinationen: $\underbrace{|B|\cdot |B| \cdots |B|}_{|A| \text{ mal}}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Funktionen als Argument einer Funktion}
+Beispiel:
+\begin{itemize}
+\item Es sei $M$ eine Menge
+\item Jede Teilmenge
+  $L\subseteq M$ kann man bijektiv mit einer Abbildung $f: M\to
+  \{0,1\}$, also einem $f\in \{0,1\}^M$ in Beziehung setzen.
+\item z.B. $L=\{2\}\subseteq M=\{1,2,3\}$ also $f(1)=0,f(2)=1,f(3)=0$
+\item Dann kann man die Vereinigung als Abbildung $V: \{0,1\}^M \times
+  \{0,1\}^M\to \{0,1\}^M$ auffassen.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Funktionen als Argument einer Funktion}
+Beispielbild für
+  $L_1=\{a,c,d\}$ und $L_2=\{b,c\}$
+  
+  \begin{tabular}{cccc}
+      & $L_1$ & $L_2$ & $L_1\cup L_2$ \\
+    x & $f_1(x)$ & $f_2(x)$ & $V(f_1,f_2)$ \\
+    \midrule
+    a & 1 & 0 & 1 \\
+    b & 0 & 1 & 1 \\
+    c & 1 & 1 & 1 \\
+    d & 1 & 0 & 1 \\
+    e & 0 & 0 & 0 \\
+  \end{tabular}\\
+Wie definiert man $V(f_1,f_2)$? \\
+\pause
+Zum Beispiel so:
+$V(f_1,f_2) (x) = \max(f_1(x),f_2(x))$
+\end{frame}
+
+
+\begin{frame}{Speicher}
+Ein Speicher kann als Abbildung von einer Menge aus Adressen nach einer Menge an Speicherwerten aufgefasst werden.\\
+$m:\text{Adr}\to\text{Val}$\\
+\begin{tabular}{cc}
+    \begin{tabular}{cc}
+      \toprule
+      Adresse 1 & Wert 1 \\
+      Adresse 2 & Wert 2 \\
+      Adresse 3 & Wert 3 \\
+      Adresse 4 & Wert 4 \\
+       $\vdots$ & $ \vdots$ \\
+      Adresse $n$ & Wert  $n$ \\
+      \bottomrule \\
+    \end{tabular}
+    \qquad
+        \begin{tabular}{cc}
+      \toprule
+      \text{000} & \text{10110101} \\
+      \text{001} & \text{10101101} \\
+      \text{010} & \text{10011101} \\
+      \text{011} & \text{01110110} \\
+      \text{100} & \text{00111110} \\
+      \text{101} & \text{10101101} \\
+      \text{110} & \text{00101011} \\
+      \text{111} & \text{10101001} \\
+      \bottomrule \\
+    \end{tabular}
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Speicher}
+Das Auslesen eines Wertes ist realisiert durch die memread Funktion
+\begin{align*}
+  \text{memread} : \text{Val}^{\text{Adr}} \times \text{Adr} &\to \text{Val} \\
+             (m,a) &\mapsto m(a) \\
+\end{align*}
+\end{frame}
+
+\begin{frame}{Speicher}
+memwrite speichert den Wert v in Adresse a:
+\begin{align*}
+  \text{memwrite} : \text{Val}^{\text{Adr}} \times \text{Adr} \times \text{Val} \to& \text{Val}^{\text{Adr}} \\
+             (m,a, v) \mapsto& m' 
+\end{align*}
+\end{frame}
+
+\begin{frame}{Speicher}
+Eigenschaften von memread und memwrite:
+\begin{itemize}
+\item $\text{memread}(\text{memwrite}(m,a,v),a) = v$
+\item $\text{memread}(\text{memwrite}(m,a',v'),a) = \text{memread}(m,a)$
+\item Auslesen einer Speicherstelle ist unabhängig davon, was vorher an einer anderen Adresse gespeichert war.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Speicher}
+Die Tabelle sei unser Speicher im Zustand $m\in Mem=\text{Val}^{\text{Adr}}$
+    \begin{tabular}{cc}
+      \toprule
+      \text{000} & \text{10110101} \\
+      \text{001} & \text{10101101} \\
+      \text{010} & \text{10011101} \\
+      \text{011} & \text{01110110} \\
+      \text{100} & \text{00111110} \\
+      \text{101} & \text{10101101} \\
+      \text{110} & \text{00101011} \\
+      \text{111} & \text{10101001} \\
+      \bottomrule \\
+    \end{tabular}
+\begin{itemize}
+\item $\text{memread}(m,100)=?$
+\item $\text{memwrite}(m,110,00011000)=?$
+\item $\text{memread}(\text{memwrite}(m,001,00110011),001)=?$
+\item $m(101)=?$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Speicher}
+Die Tabelle sei unser Speicher im Zustand $m\in Mem=\text{Val}^{\text{Adr}}$
+    \begin{tabular}{cc}
+      \toprule
+      \text{000} & \text{10110101} \\
+      \text{001} & \text{10101101} \\
+      \text{010} & \text{10011101} \\
+      \text{011} & \text{01110110} \\
+      \text{100} & \text{00111110} \\
+      \text{101} & \text{10101101} \\
+      \text{110} & \text{00101011} \\
+      \text{111} & \text{10101001} \\
+      \bottomrule \\
+    \end{tabular}
+\begin{itemize}
+\item $\text{memread}(m,100)=00111110$
+\item $\text{memwrite}(m,110,00011000)=m'$
+\item $\text{memread}(\text{memwrite}(m,001,00110011),001)=00110011$
+\item $m(101)=10101101$
+\end{itemize}
+\end{frame}
